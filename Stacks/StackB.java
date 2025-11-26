@@ -68,13 +68,67 @@ public class StackB {
         s.push(i);
     }
    }
-    public static void main(String args[]){
-            int stocks [] = { 100, 80, 60, 70, 60 , 85 ,100};
-            int span [] = new int[stocks.length];
-            stockSpan(stocks ,span );
+   public static boolean isValid(String str) {//O(n)
+        Stack<Character> s = new Stack<>();
+        for (int i = 0; i < str.length(); i++) {
+            char ch = str.charAt(i);
+            // opening
+            if (ch == '(' || ch == '{' || ch == '[') {
+                s.push(ch);
+            } else {
+                // Closing
+                if (s.isEmpty()) {
+                    return false;
+                }
+                if ((s.peek() == '(' && ch == ')')
+                        || (s.peek() == '{' && ch == '}')
+                        || (s.peek() == '[' && ch == ']')) {
+                            s.pop();
+                } else {
+                    return false;
+                }
 
-       for(int i=0; i<span.length; i++){
-        System.out.println(span[i]+" ");
-       }
+            }
+        }
+        if(s.isEmpty()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public static void main(String args[]) {
+        String str = "{[]()}[]";
+        System.out.print(isValid(str));
+        int arr[] = {2,4,0,9,1,3};
+Stack<Integer> s= new Stack<>();
+int nextGreater[] = new int[arr.length];
+for(int i = arr.length-1; i>=0; i--){
+//1
+while(!s.isEmpty()&& arr[s.peek()]<=arr[i]){
+s.pop();
+}
+//2 if-else
+if(s.empty()){
+nextGreater[i] = -1;
+}else{
+nextGreater[i] = arr[s.peek()];
+}
+
+//3 push in s
+s.push(i);
+}
+for(int i=0; i<arr.length; i++){
+System.out.print(nextGreater[i] + " ");
+}
+
+// different way to ask some problem
     }
 }
+
+// next Greater value problem
+
+// next Greater right
+// next Greater left
+// next smallest Right
+// next smallest left
